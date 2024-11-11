@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.padding-content {
+    padding-top: 2%;
+}
+
+.editingUserButton {
+    @apply bg-blue-500 w-5 h-5 rounded-full;
+}
+
+.ableUserButton {
+    @apply bg-red-500 w-5 h-5 rounded-full;
+}
+
+.containerImagemLogoNavbar {
+    @apply w-10 h-10;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
