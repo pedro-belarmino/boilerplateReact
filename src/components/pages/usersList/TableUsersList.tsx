@@ -43,17 +43,10 @@ const TableUsersList: FC = () => {
         return phone.replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3-$4');
     };
 
-
-    // if (landline != null || landline != "") {
-
     const formatLandline = (landline: string): string => {
         return landline.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
     };
 
-    // landline = formatLandline
-    //     } else {
-    //         landline = "-----"
-    //     }
 
 
     useEffect(() => {
@@ -103,31 +96,32 @@ const TableUsersList: FC = () => {
 
     return (
         <div className="bg-gray-50 dark:bg-gray-900 py-8">
-            <div className="container mx-auto px-4 max-w-6xl ">
+            <div className="container mx-auto px-4 ">
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700">
                     <div className="overflow-x-auto">
                         <table className="min-w-full">
                             <thead>
                                 <tr className="bg-[#3e5875] text-white">
-                                    <th className="w-[9%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">ID</th>
-                                    <th className="w-[18%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">Nome</th>
-                                    <th className="w-[18%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">E-mail</th>
-                                    <th className="w-[18%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">CPF</th>
-                                    <th className="w-[18%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">Celular</th>
-                                    <th className="w-[18%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">Telefone</th>
-                                    <th className="w-[9%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">Status</th>
-                                    <th className="w-[10%] px-4 py-3 border-b border-r border-white font-semibold dark:border-slate-700">Ações</th>
+                                    <th className="w-[9%] contentUsersTableH">ID</th>
+                                    <th className="w-[18%] contentUsersTableH">Nome</th>
+                                    <th className="w-[18%] contentUsersTableH">E-mail</th>
+                                    <th className="w-[18%] contentUsersTableH">CPF</th>
+                                    <th className="w-[18%] contentUsersTableH">Celular</th>
+                                    <th className="w-[18%] contentUsersTableH">Telefone</th>
+                                    <th className="w-[9%] contentUsersTableH">Status</th>
+                                    <th className="w-[10%] contentUsersTableH">Ações</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700 dark:text-white">
                                 {users.map((user) => (
                                     <tr key={user.userId} className="hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-100">
-                                        <td className="px-4 py-3 border-r border-gray-200 dark:border-gray-700 text-center">{user.userId}</td>
-                                        <td className="px-4 py-3 border-r border-gray-200 dark:border-gray-700">{user.name}</td>
-                                        <td className="px-4 py-3 border-r border-gray-200 dark:border-gray-700">{user.email}</td>
-                                        <td className="px-4 py-3 border-r border-gray-200 dark:border-gray-700 text-center">{formatCpf(user.cpf)}</td>
-                                        <td className="px-4 py-3 border-r border-gray-200 dark:border-gray-700 text-center">{formatPhoneNumber(user.telephone)}</td>
-                                        <td className="px-4 py-3 border-r border-gray-200 dark:border-gray-700 text-center flex justify-center">{user.landline ? formatLandline(user.landline) :
+                                        <td className="contentUsersTableB text-center">{user.userId}</td>
+                                        <td className="contentUsersTableB">{user.name}</td>
+                                        <td className="contentUsersTableB">{user.email}</td>
+                                        <td className="contentUsersTableB text-center">{formatCpf(user.cpf)}</td>
+                                        <td className="contentUsersTableB text-center">{formatPhoneNumber(user.telephone)}</td>
+                                        <td className="contentUsersTableB text-center flex justify-center">{user.landline ? formatLandline(user.landline) 
+                                                :
                                             <svg
                                                 className="h-8 w-8 text-slate-600 dark:text-slate-50"
                                                 viewBox="0 0 24 12"
@@ -140,7 +134,7 @@ const TableUsersList: FC = () => {
                                             </svg>
                                         }
                                         </td>
-                                        <td className="px-4 py-3 border-r border-gray-200 dark:border-gray-700 text-center">
+                                        <td className="contentUsersTableB text-center">
                                             <button
                                                 className={`h-4 w-4 rounded-full transition-colors ${user.status ? 'bg-green-500' : 'bg-red-500'}`}
                                                 aria-label={user.status ? 'Ativo' : 'Inativo'}

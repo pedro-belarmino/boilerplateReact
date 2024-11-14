@@ -19,7 +19,7 @@ const App: React.FC = () => {
     <UserProvider>
       <BrowserRouter>
 
-        <main className="flex-grow pt-16 bg-white dark:bg-gray-900 text-black dark:text-gray-200">
+        <main className="flex-grow pt-16 bg-white dark:bg-gray-900 text-black dark:text-gray-200 ">
           <Routes>
             <Route path='/' element={<ProtectedRoute><Template /></ProtectedRoute>} >
               <Route path='home' element={<Home />} />

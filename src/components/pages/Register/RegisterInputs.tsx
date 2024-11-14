@@ -3,7 +3,6 @@ import Inputs from "../../shared/Inputs";
 import '../../../index.css';
 import axios from "axios";
 import { baseUrl } from "../../../../shareUrl";
-import Background from "../../shared/Background";
 
 const formatCPF = (value: string) => {
     const numericCPFValue = value.replace(/\D/g, '').slice(0, 11);
@@ -54,6 +53,26 @@ const ValidadeCPF = (cpf: string): boolean => {
 
     return true;
 };
+
+
+const validateEmail = (email: string): boolean => { 
+    const validEmailRegex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+    const emailParts = email.split('@')
+
+    if (emailParts.length !== 2) return false;
+
+    const account = emailParts[0];
+    const domain = emailParts[1];
+
+    if (account.length > 64) return false;
+    else if (domain.length > 255) return false;
+
+    const domainParts = domain.split('.');
+
+    if (domainParts.some((part) => part.length > 63)) return false;
+
+    return validEmailRegex.test(email)
+}
 
 const RegisterInputs: FC = () => {
     const url = `${baseUrl}api-demo/v1/user?companyId=1`;
@@ -109,6 +128,10 @@ const RegisterInputs: FC = () => {
             validationErrors.userCPF = 'O CPF informado não é válido.';
         }
 
+        if (userEmail && !validateEmail(userEmail)) {
+            validationErrors.userEmail = 'Insira um email válido';
+        }
+
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
@@ -151,19 +174,15 @@ const RegisterInputs: FC = () => {
     };
 
     return (
-        <Background >
-            <div className="relative"></div>
-                <img src="src/assets/images/logo-2.jpg" className="	bg-center absolute h-24" alt="Background" />
-
-                <div className=" bg-cover justify-center items-center "></div>
-
-                    <form onSubmit={handleRegisterSubmit} className=" px-24 py-24">
+        <div className="rounded-lg p-2 m-6 bg-gray-100 dark:bg-[#1F2937] ">
+           
+                    <form onSubmit={handleRegisterSubmit} className="m-6 ">
                         {successMessage && (
                             <div className="text-green-500 text-center">{successMessage}</div>
                         )}
                        <div>
                     
-                                <label htmlFor="name" className="text-gray-700 font-semibold">*Nome</label>
+                                <label htmlFor="name" className="text-gray-700 font-semibold dark:text-white">*Nome</label>
                                 <Inputs
                                     type="text"
                                     name="name"
@@ -176,7 +195,7 @@ const RegisterInputs: FC = () => {
                             </div>
 
                             <div className="flex flex-col space-y-1">
-                                <label htmlFor="email" className="text-gray-700 font-semibold">*E-mail</label>
+                                <label htmlFor="email" className="text-gray-700 font-semibold dark:text-white">*E-mail</label>
                                 <Inputs
                                     type="text"
                                     name="email"
@@ -189,7 +208,7 @@ const RegisterInputs: FC = () => {
                             </div>
 
                             <div className="flex flex-col space-y-1">
-                                <label htmlFor="phoneNumber" className="text-gray-700 font-semibold">*Celular</label>
+                                <label htmlFor="phoneNumber" className="text-gray-700 font-semibold dark:text-white">*Celular</label>
                                 <Inputs
                                     type="text"
                                     name="phoneNumber"
@@ -203,7 +222,7 @@ const RegisterInputs: FC = () => {
                             </div>
 
                             <div className="flex flex-col space-y-1">
-                                <label htmlFor="phoneNumberFixo" className="text-gray-700 font-semibold">Telefone</label>
+                                <label htmlFor="phoneNumberFixo" className="text-gray-700 font-semibold dark:text-white">Telefone</label>
                                 <Inputs
                                     type="text"
                                     name="phoneNumberFixo"
@@ -216,7 +235,7 @@ const RegisterInputs: FC = () => {
                             </div>
 
                             <div className="flex flex-col space-y-1">
-                                <label htmlFor="CPF" className="text-gray-700 font-semibold">*CPF</label>
+                                <label htmlFor="CPF" className="text-gray-700 font-semibold dark:text-white">*CPF</label>
                                 <Inputs
                                     type="text"
                                     name="CPF"
@@ -232,13 +251,13 @@ const RegisterInputs: FC = () => {
                             <button
                                 type="submit"
                                 name="submit"
-                                className="w-full py-3 bg-[#3e5875] text-white rounded-md hover:bg-[#3e5875]transition duration-500"
+                                className="w-full py-3 bg-[#3e5875] text-white rounded-md hover:bg-[#3e5875]transition duration-500 mt-5"
                             >
                                 Criar cadastro 
                             </button>
                     </form>
-
-        </Background>
+                    
+        </div>
     );
 };
 

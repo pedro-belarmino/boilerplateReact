@@ -78,9 +78,8 @@ const LoginForm: React.FC = () => {
           }
 
           localStorage.setItem('token', response.data.token);
-          setTimeout(() => {
             navigate('/home');
-          }, 1000);
+
         }
       } catch (error: any) {
         if (error.response) {
